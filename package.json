@@ -1,0 +1,12 @@
+{
+  "name": "watchtower",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Local-first activity tracking",
+  "scripts": {
+    "dev": "cd app && bun run dev",
+    "build": "cd app && bun run build",
+    "start": "cd app && bun run start",
+    "lint": "cd app && bun run lint"
+  }
+}
