@@ -61,6 +61,8 @@ This repository is intended to evolve into an NPM package so other parts of your
 
 **Stop MongoDB:** `docker compose down` (data persists in the volume).
 
+**Optional — run the app in Docker:** A `Dockerfile` is provided for the Next.js app (Bun). You can build and run it separately, or add it as a second service in `docker-compose.yml` that depends on `mongodb` and set `MONGODB_URI` to the MongoDB service hostname.
+
 ## License
 
 See [LICENSE](LICENSE) (MIT).
