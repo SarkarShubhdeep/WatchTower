@@ -7,5 +7,17 @@ services:
     volumes:
       - watchtower_mongo_data:/data/db
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: watchtower-app
+    ports:
+      - "5800:5800"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/watchtower
+    depends_on:
+      - mongodb
+
 volumes:
   watchtower_mongo_data:

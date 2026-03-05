@@ -11,6 +11,7 @@ RUN bun install --frozen-lockfile
 COPY app/ .
 RUN bun run build
 
-EXPOSE 3000
+EXPOSE 5800
 ENV NODE_ENV=production
+ENV PORT=5800
 CMD ["bun", "run", "start"]
