@@ -1,52 +1,49 @@
-# MIE Web Open Source Template
+# WatchTower — Local-first activity tracking
 
-Shared baseline files for MIE Web open source projects — Copilot instructions, `.gitignore`, and more.
+Privacy-focused, local-only time tracking in the spirit of [ActivityWatch](https://activitywatch.net/). All data stays on your machine. No cloud, no telemetry.
 
-## Apply to an Existing Project
+## What it is
 
-### Option 1 — `curl` one-liner
+WatchTower tracks what’s happening on your computer (active application, window title, optional browser tab, AFK, etc.) and stores everything in a local database. Data never leaves your device.
 
-```bash
-bash <(curl -sL https://raw.githubusercontent.com/mieweb/template-mieweb-opensource/main/apply.sh)
-```
+## Primary goal, 03/05/26 (current)
 
-### Option 2 — `npx` (Node.js 18+)
+A simple application with a lightweight interface that:
 
-The `npx` support lives on the [`npx` branch](https://github.com/mieweb/template-mieweb-opensource/tree/npx) to keep `main` clean as a template.
+- **Tracks** activity on the user’s computer (active app, window title, optional browser tab, AFK).
+- **Shows a simple list** of activity with basic filtering.
+- **Shows simple statistics** only — e.g. “Cursor 3h today”, “Slack 45m”, “Chrome – GitHub 20m”, “Google Meet 1.5h”, “AFK 4h”. No charts or graphs in the first version.
 
-```bash
-npx github:mieweb/template-mieweb-opensource#npx
-```
+## Tech stack
 
-### What it does
+- **Interface / client:** [Next.js](https://nextjs.org/)
+- **Storage:** [MongoDB](https://www.mongodb.com/) (run locally)
+- **Environment:** [Docker](https://www.docker.com/) (and Docker Compose) so the same setup runs on any platform
 
-1. Fetches each template file from this repo
-2. Checks if it already exists in your project
-3. If it **doesn't exist** → prompts to **create** or skip
-4. If it **exists but differs** → prompts to:
-   - **(o)verwrite** — replace with the template version
-   - **(a)ppend** — add the template content at the end
-   - **(m)erge** — deduplicate lines (great for `.gitignore`)
-   - **(s)kip** — leave your file untouched
-5. If it's **already identical** → skips automatically
+## Local-first
 
-### Template files included
+All tracked data is stored only in a local MongoDB instance (e.g. in Docker with a named volume). No server outside the user’s machine. The design is “local DB”; the first implementation uses MongoDB.
 
-| File | Purpose |
-|------|---------|
-| `.github/copilot-instructions.md` | Code quality, accessibility, i18n, docs standards for GitHub Copilot |
-| `.gitignore` | Standard ignores for Node.js projects |
+## Future: NPM package
 
-## Adding new template files
+This repository is intended to evolve into an NPM package so other parts of your software can depend on it (e.g. API client and TypeScript types). The Next.js app will be the reference implementation or a companion UI.
 
-Edit the `TEMPLATE_FILES` array in:
+## Design decisions
 
-- [apply.sh](apply.sh) (shell script — always on `main`)
-- `bin/apply-template.mjs` (Node.js CLI — on the [`npx` branch](https://github.com/mieweb/template-mieweb-opensource/tree/npx))
+- **Docker Compose:** MongoDB (and optionally the full stack) runs via Compose. Data lives in a named volume so it persists and stays on the host. Environment-safe and local-only.
+- **Core as a local API:** The core is a service that (1) accepts tracking events (app, window, duration, etc.) and (2) exposes read endpoints for “today’s list” and “simple stats” (aggregations by app/duration). The NPM package will expose a client SDK and types; other products can `npm install` and talk to the same local API.
+- **Tracking collectors:** ActivityWatch-style “watchers” (desktop process for active window, browser extension for tabs) are on the roadmap. A small desktop agent or browser extension will send events to the local API (separate repo or sub-package later).
+- **Simple stats (v1):** Store raw events (app name, window title, start/end timestamps, optional category). The API aggregates by day and by app/window and returns simple summaries. The UI only renders lists and these summaries — no charts in v1.
+- **Database:** First implementation is MongoDB. The design could later support alternatives (e.g. SQLite for a zero-Docker, single-file option) while staying local-only.
 
-## Starting a new project
+## Getting started
 
-1. Use this repo as a [GitHub template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
-2. Replace this README with your own — consider [Working Backwards](https://docs.google.com/document/d/1zxa0Rgq56xGHOgY51DbZJVUlWMRh2pbd6AupVYI9IZc)
-3. Use `npx create` to scaffold your framework
-4. Use API-first thinking (no UI-first)
+_(Placeholder — concrete steps will be added once the stack is in place.)_
+
+1. Clone this repository.
+2. Run MongoDB via Docker Compose (data in a named volume).
+3. Run the Next.js app and open the UI in your browser.
+
+## License
+
+See [LICENSE](LICENSE) (MIT).
