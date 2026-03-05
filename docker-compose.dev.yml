@@ -1,0 +1,14 @@
+# Override app to run in dev mode with hot reload. Use:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./app:/app
+      - app_node_modules:/app/node_modules
+    command: bun run dev
+
+volumes:
+  app_node_modules:

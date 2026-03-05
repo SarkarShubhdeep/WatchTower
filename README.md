@@ -38,11 +38,39 @@ This repository is intended to evolve into an NPM package so other parts of your
 
 ## Getting started
 
-_(Placeholder — concrete steps will be added once the stack is in place.)_
+**Prerequisites:** [Bun](https://bun.sh) (optional) or Node.js LTS, [Docker](https://www.docker.com/).
 
-1. Clone this repository.
-2. Run MongoDB via Docker Compose (data in a named volume).
-3. Run the Next.js app and open the UI in your browser.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/SarkarShubhdeep/WatchTower.git && cd WatchTower
+   ```
+
+2. **Run the app (choose one)**
+
+   **Option A — Full stack in Docker, production build** (no hot reload)
+   ```bash
+   docker compose up -d
+   ```
+   Open [http://localhost:5800](http://localhost:5800).
+
+   **Option B — Full stack in Docker with hot reload** (good for development)
+   ```bash
+   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+   ```
+   The app runs in dev mode; code changes in `app/` are picked up automatically. Open [http://localhost:5800](http://localhost:5800).
+
+   **Option C — MongoDB in Docker, app on your machine** (also good for dev)
+   ```bash
+   docker compose up -d mongodb
+   cp .env.example app/.env
+   cd app && bun run dev
+   ```
+   Or from the repo root: `bun run dev`. If you use npm: `cd app && npm run dev`.
+   Open [http://localhost:5800](http://localhost:5800).
+
+3. **Optional:** Edit `app/.env` to override `MONGODB_URI` (only needed for Option C). The API route `/api/health` pings MongoDB when the app is running.
+
+**Stop:** `docker compose down` (data persists in the volume). With Option A or B, both containers stop; with Option C, only MongoDB stops.
 
 ## License
 
