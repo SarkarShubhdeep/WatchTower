@@ -1,0 +1,11 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: watchtower-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - watchtower_mongo_data:/data/db
+
+volumes:
+  watchtower_mongo_data:
