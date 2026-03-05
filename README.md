@@ -38,11 +38,28 @@ This repository is intended to evolve into an NPM package so other parts of your
 
 ## Getting started
 
-_(Placeholder — concrete steps will be added once the stack is in place.)_
+**Prerequisites:** [Bun](https://bun.sh) (optional) or Node.js LTS, [Docker](https://www.docker.com/).
 
-1. Clone this repository.
-2. Run MongoDB via Docker Compose (data in a named volume).
-3. Run the Next.js app and open the UI in your browser.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/SarkarShubhdeep/WatchTower.git && cd WatchTower
+   ```
+
+2. **Start MongoDB** (data is stored in a named volume on your machine)
+   ```bash
+   docker compose up -d
+   ```
+
+3. **Run the app**
+   ```bash
+   cd app && bun run dev
+   ```
+   Or from the repo root: `bun run dev`. If you use npm: `cd app && npm run dev`.
+   Open [http://localhost:3000](http://localhost:3000).
+
+4. **Optional:** Copy `.env.example` to `app/.env` and set `MONGODB_URI` if you need to override the default. The API route `/api/health` pings MongoDB when the app is running.
+
+**Stop MongoDB:** `docker compose down` (data persists in the volume).
 
 ## License
 
