@@ -71,7 +71,7 @@ export default function Home() {
                                 </CardTitle>
                             </CardHeader>
                             <CardDescription className="px-6">
-                                Data is stored in a local MongoDB instance.
+                                Data is stored in a local SQLite file.
                                 Nothing leaves your device.
                             </CardDescription>
                         </Card>
@@ -97,8 +97,8 @@ export default function Home() {
                                 </CardTitle>
                             </CardHeader>
                             <CardDescription className="px-6">
-                                Next.js 16, MongoDB (Docker), Bun. Runs on port
-                                5800 with optional full-stack Docker setup.
+                                Next.js 16, SQLite, Bun. Runs on port 5800;
+                                no Docker required for the database.
                             </CardDescription>
                         </Card>
                         <Card className="shadow-none rounded-none border-l-0 border-r border-t-0 flex flex-col justify-between">

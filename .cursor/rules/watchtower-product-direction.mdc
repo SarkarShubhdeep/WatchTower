@@ -1,0 +1,11 @@
+---
+description: WatchTower product direction - local-first, stack, and current focus
+alwaysApply: true
+---
+
+# WatchTower Product Direction
+
+- **Local-first and privacy-focused:** No cloud storage or telemetry. All tracked data stays on the user's machine.
+- **Current focus:** Lightweight UI with a simple list, filtering, and simple statistics (e.g. "Cursor 3h today", "Slack 45m"). No charts or graphs in v1.
+- **Tech stack:** Next.js (UI), SQLite (single file, no Docker), future NPM package for the API client.
+- **Core as API:** Build the core as a local API that accepts tracking events and exposes list/stats endpoints; the NPM package will provide a client SDK for other products to use.
