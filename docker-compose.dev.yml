@@ -8,7 +8,8 @@ services:
     volumes:
       - ./app:/app
       - app_node_modules:/app/node_modules
-    command: bun run dev
+    # Use Webpack instead of Turbopack to avoid runtime errors in Docker (volume mounts)
+    command: bun run dev:webpack
 
 volumes:
   app_node_modules:

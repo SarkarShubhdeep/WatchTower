@@ -8,5 +8,8 @@
     "build": "cd app && bun run build",
     "start": "cd app && bun run start",
     "lint": "cd app && bun run lint"
+  },
+  "dependencies": {
+    "lucide-react": "^0.577.0"
   }
 }

@@ -40,37 +40,46 @@ This repository is intended to evolve into an NPM package so other parts of your
 
 **Prerequisites:** [Bun](https://bun.sh) (optional) or Node.js LTS, [Docker](https://www.docker.com/).
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/SarkarShubhdeep/WatchTower.git && cd WatchTower
-   ```
+### Recommended: MongoDB in Docker, Next.js on host
 
-2. **Run the app (choose one)**
+Docker runs **only** MongoDB. The Next.js client runs on your machine (hot reload, no Docker build issues).
 
-   **Option A — Full stack in Docker, production build** (no hot reload)
-   ```bash
-   docker compose up -d
-   ```
-   Open [http://localhost:5800](http://localhost:5800).
-
-   **Option B — Full stack in Docker with hot reload** (good for development)
-   ```bash
-   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
-   ```
-   The app runs in dev mode; code changes in `app/` are picked up automatically. Open [http://localhost:5800](http://localhost:5800).
-
-   **Option C — MongoDB in Docker, app on your machine** (also good for dev)
+1. **Start only MongoDB**
    ```bash
    docker compose up -d mongodb
-   cp .env.example app/.env
-   cd app && bun run dev
    ```
-   Or from the repo root: `bun run dev`. If you use npm: `cd app && npm run dev`.
-   Open [http://localhost:5800](http://localhost:5800).
+   If the app container was running (e.g. you ran `docker compose up` before), stop it so port 5800 is free:
+   ```bash
+   docker stop watchtower-app
+   ```
 
-3. **Optional:** Edit `app/.env` to override `MONGODB_URI` (only needed for Option C). The API route `/api/health` pings MongoDB when the app is running.
+2. **Run the Next.js app on your machine**
+   ```bash
+   cp .env.example app/.env
+   cd app && bun install && bun run dev
+   ```
+   Or from repo root: `bun run dev`. With npm: `cd app && npm install && npm run dev`.
 
-**Stop:** `docker compose down` (data persists in the volume). With Option A or B, both containers stop; with Option C, only MongoDB stops.
+3. **Open** [http://localhost:5800](http://localhost:5800).
+
+### Health check
+
+With MongoDB and the app running as above:
+
+| Check | How | Expected |
+|-------|-----|----------|
+| Landing page | Open [http://localhost:5800](http://localhost:5800) | WatchTower landing with logo and features |
+| MongoDB connection | Open [http://localhost:5800/api/health](http://localhost:5800/api/health) | `{"ok":true}` |
+| MongoDB only | `docker compose ps` | `watchtower-mongodb` running; no `watchtower-app` |
+
+If you see **"Module not found: lucide-react"** or other build errors, you are likely hitting the **Docker app** (or Next is running from the wrong directory). Ensure only `watchtower-mongodb` is running in Docker, then start the app on the host with `cd app && bun install && bun run dev`.
+
+### Other run options
+
+- **Option A — Full stack in Docker** (no hot reload): `docker compose up -d`. Both MongoDB and the app run in containers.
+- **Option B — Full stack in Docker with hot reload**: `docker compose -f docker-compose.yml -f docker-compose.dev.yml up`.
+
+**Stop:** `docker compose down` (data persists in the volume).
 
 ## License
 
