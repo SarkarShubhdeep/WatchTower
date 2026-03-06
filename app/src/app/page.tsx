@@ -50,7 +50,7 @@ export default function Home() {
                 {/* Description */}
                 <section className="mb-12">
                     <p className="max-w-xl text-muted-foreground leading-relaxed">
-                        WatchTower tracks what’s happening on your
+                        WatchTower tracks what&apos;s happening on your
                         computer—active apps, window titles, optional browser
                         tabs, AFK—and stores everything locally. No cloud, no
                         telemetry. All data stays on your machine.
@@ -63,26 +63,26 @@ export default function Home() {
                         Features
                     </h2>
                     <div className="grid sm:grid-cols-2">
-                        <Card className="shadow-none rounded-none border">
+                        <Card className="shadow-none rounded-none border flex flex-col justify-between">
                             <CardHeader className="pb-2">
                                 <Shield className="mb-1 size-5 text-muted-foreground" />
                                 <CardTitle className="text-base">
                                     Local-only
                                 </CardTitle>
-                                <CardDescription>
-                                    Data is stored in a local MongoDB instance.
-                                    Nothing leaves your device.
-                                </CardDescription>
                             </CardHeader>
+                            <CardDescription className="px-6">
+                                Data is stored in a local MongoDB instance.
+                                Nothing leaves your device.
+                            </CardDescription>
                         </Card>
-                        <Card className="shadow-none rounded-none border-y border-r border-l-0">
+                        <Card className="shadow-none rounded-none border-y border-r border-l-0 flex flex-col justify-between">
                             <CardHeader className="pb-2">
                                 <LayoutDashboard className="mb-1 size-5 text-muted-foreground" />
                                 <CardTitle className="text-base">
                                     Simple list & stats
                                 </CardTitle>
                             </CardHeader>
-                            <CardDescription>
+                            <CardDescription className="px-6">
                                 View activity as a list with basic filtering and
                                 simple time summaries (e.g. &quot;Cursor 3h
                                 today&quot;).
