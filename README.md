@@ -38,48 +38,24 @@ This repository is intended to evolve into an NPM package so other parts of your
 
 ## Getting started
 
-**Prerequisites:** [Bun](https://bun.sh) (optional) or Node.js LTS, [Docker](https://www.docker.com/).
+**Prerequisites:** [Bun](https://bun.sh) (or Node.js LTS), [Docker](https://www.docker.com/).
 
-### Recommended: MongoDB in Docker, Next.js on host
+Stable setup: **Docker for the backend**, **Next.js on your machine**.
 
-Docker runs **only** MongoDB. The Next.js client runs on your machine (hot reload, no Docker build issues).
-
-1. **Start only MongoDB**
+1. **Backend (Docker)**
    ```bash
    docker compose up -d mongodb
    ```
-   If the app container was running (e.g. you ran `docker compose up` before), stop it so port 5800 is free:
-   ```bash
-   docker stop watchtower-app
-   ```
 
-2. **Run the Next.js app on your machine**
+2. **Client (host)**
    ```bash
    cp .env.example app/.env
    cd app && bun install && bun run dev
    ```
-   Or from repo root: `bun run dev`. With npm: `cd app && npm install && npm run dev`.
 
-3. **Open** [http://localhost:5800](http://localhost:5800).
+3. **Open** [http://localhost:5800](http://localhost:5800). API health: [http://localhost:5800/api/health](http://localhost:5800/api/health) → `{"ok":true}` when MongoDB is connected.
 
-### Health check
-
-With MongoDB and the app running as above:
-
-| Check | How | Expected |
-|-------|-----|----------|
-| Landing page | Open [http://localhost:5800](http://localhost:5800) | WatchTower landing with logo and features |
-| MongoDB connection | Open [http://localhost:5800/api/health](http://localhost:5800/api/health) | `{"ok":true}` |
-| MongoDB only | `docker compose ps` | `watchtower-mongodb` running; no `watchtower-app` |
-
-If you see **"Module not found: lucide-react"** or other build errors, you are likely hitting the **Docker app** (or Next is running from the wrong directory). Ensure only `watchtower-mongodb` is running in Docker, then start the app on the host with `cd app && bun install && bun run dev`.
-
-### Other run options
-
-- **Option A — Full stack in Docker** (no hot reload): `docker compose up -d`. Both MongoDB and the app run in containers.
-- **Option B — Full stack in Docker with hot reload**: `docker compose -f docker-compose.yml -f docker-compose.dev.yml up`.
-
-**Stop:** `docker compose down` (data persists in the volume).
+**Stop backend:** `docker compose down` (data persists in the volume).
 
 ## License
 
