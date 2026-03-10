@@ -1,0 +1,22 @@
+---
+description: Refactoring guidelines and dead code management practices
+alwaysApply: true
+---
+
+# Refactoring & Dead Code Management
+
+## Refactoring Guidelines
+
+- **Continuous improvement**: Refactor as you work, not as a separate task
+- **Safe refactoring**: Always run tests before and after refactoring
+- **Incremental changes**: Make small, safe changes rather than large rewrites
+- **Preserve behavior**: Refactoring should not change external behavior
+- **Code reviews**: All refactoring should be reviewed for correctness
+
+## Dead Code Management
+
+- **Immediate removal**: Delete unused code immediately when identified
+- **Historical preservation**: Move significant dead code to `.attic/` directory with context
+- **Documentation**: Include comments explaining why code was moved to attic
+- **Regular cleanup**: Review and clean attic directory periodically
+- **No accumulation**: Don't let dead code accumulate in active codebase

@@ -1,4 +1,7 @@
 #!/usr/bin/env bun
+import { fileURLToPath } from "node:url";
+import { join, dirname } from "node:path";
+
 /**
  * Window watcher for WatchTower (macOS).
  * Polls the frontmost app and window title, sends events to the local API when they change.
@@ -11,7 +14,8 @@
 
 const API_URL = process.env.WATCHTOWER_API_URL ?? "http://localhost:5800";
 const POLL_MS = Math.max(1000, parseInt(process.env.WATCHTOWER_POLL_MS ?? "5000", 10));
-const SCRIPT_PATH = new URL("./get-window.applescript", import.meta.url).pathname;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const SCRIPT_PATH = join(__dirname, "get-window.applescript");
 
 interface WindowInfo {
   app: string;
