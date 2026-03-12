@@ -6,6 +6,7 @@ import {
     LayoutDashboard,
     GitBranch,
     ArrowRight,
+    ArrowUpRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,8 +72,8 @@ export default function Home() {
                                 </CardTitle>
                             </CardHeader>
                             <CardDescription className="px-6">
-                                Data is stored in a local SQLite file.
-                                Nothing leaves your device.
+                                Data is stored in a local SQLite file. Nothing
+                                leaves your device.
                             </CardDescription>
                         </Card>
                         <Card className="shadow-none rounded-none border-y border-r border-l-0 flex flex-col justify-between">
@@ -97,8 +98,8 @@ export default function Home() {
                                 </CardTitle>
                             </CardHeader>
                             <CardDescription className="px-6">
-                                Next.js 16, SQLite, Bun. Runs on port 5800;
-                                no Docker required for the database.
+                                Next.js 16, SQLite, Bun. Runs on port 5800; no
+                                Docker required for the database.
                             </CardDescription>
                         </Card>
                         <Card className="shadow-none rounded-none border-l-0 border-r border-t-0 flex flex-col justify-between">
@@ -126,6 +127,16 @@ export default function Home() {
                         <Link href="/api/health">
                             API health
                             <ArrowRight className="size-4" />
+                        </Link>
+                    </Button>
+                    <Button
+                        asChild
+                        size="lg"
+                        className="rounded-full shadow-none"
+                    >
+                        <Link href="/activity" target="_blank">
+                            View Tracking
+                            <ArrowUpRight className="size-4" />
                         </Link>
                     </Button>
                     <Button

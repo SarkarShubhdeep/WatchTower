@@ -4,23 +4,37 @@ import { getDb } from "@/lib/db";
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const dateParam = searchParams.get("date");
-  const date = dateParam ? new Date(dateParam) : new Date();
-  if (Number.isNaN(date.getTime())) {
+  let year: number;
+  let month: number;
+  let day: number;
+
+  if (dateParam) {
+    const parts = dateParam.split("-");
+    if (parts.length !== 3) {
+      return NextResponse.json(
+        { error: "Invalid date parameter" },
+        { status: 400 }
+      );
+    }
+    year = Number.parseInt(parts[0] ?? "", 10);
+    month = Number.parseInt(parts[1] ?? "", 10);
+    day = Number.parseInt(parts[2] ?? "", 10);
+  } else {
+    const now = new Date();
+    year = now.getUTCFullYear();
+    month = now.getUTCMonth() + 1;
+    day = now.getUTCDate();
+  }
+
+  if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) {
     return NextResponse.json(
       { error: "Invalid date parameter" },
       { status: 400 }
     );
   }
 
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-  const startOfDay = Math.floor(
-    new Date(year, month, day).getTime() / 1000
-  );
-  const endOfDay = Math.floor(
-    new Date(year, month, day + 1).getTime() / 1000
-  );
+  const startOfDay = Math.floor(Date.UTC(year, month - 1, day) / 1000);
+  const endOfDay = Math.floor(Date.UTC(year, month - 1, day + 1) / 1000);
 
   const database = getDb();
   const rows = database
