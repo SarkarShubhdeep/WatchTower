@@ -12,6 +12,7 @@
     "watcher:afk": "bun run watcher/afk.ts"
   },
   "dependencies": {
+    "better-sqlite3": "^12.6.2",
     "lucide-react": "^0.577.0"
   }
 }
