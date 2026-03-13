@@ -1,0 +1,18 @@
+---
+description: Internationalization (I18N) and localization guidelines
+alwaysApply: true
+---
+
+# Internationalization (I18N)
+
+## Text and Language Support
+
+- **Externalize text**: All user-facing text must be externalized for translation
+- **Multiple languages**: Support multiple languages, including right-to-left (RTL) languages such as Arabic and Hebrew
+- **Language selector**: Provide a language selector for users to choose their preferred language
+
+## Localization
+
+- **Format localization**: Ensure date, time, number, and currency formats are localized based on user settings
+- **UI compatibility**: Test UI layouts for text expansion and RTL compatibility
+- **Unicode support**: Use Unicode throughout to support international character sets

@@ -1,0 +1,26 @@
+---
+description: HTML, CSS styling, and accessibility (ARIA) standards
+alwaysApply: true
+---
+
+# HTML, CSS & Accessibility
+
+## HTML & CSS Guidelines
+
+- **Semantic Naming**: Every `<div>` and structural element must use a meaningful, semantic class name that clearly indicates its purpose or role
+- **CSS Simplicity**: Styles should avoid global resets or overrides that affect unrelated components. Keep changes scoped and minimal
+- **SASS-First Approach**: All styles should be written in SASS (SCSS) whenever possible. Each component should have its own dedicated SASS file
+
+## Accessibility (ARIA)
+
+### Interactive Elements
+
+- **All interactive elements** (buttons, links, forms, dialogs) must include appropriate ARIA roles and labels
+- **Use ARIA attributes**: Implement `aria-label`, `aria-labelledby`, and `aria-describedby` to provide clear information for screen readers
+- **Semantic HTML**: Use semantic HTML wherever possible to enhance accessibility
+
+### Dynamic Content
+
+- **Announce updates**: Ensure dynamic content updates (modals, alerts, notifications) are announced using `aria-live` regions
+- **Maintain tab order**: Maintain logical tab order and keyboard navigation for all features
+- **Visible focus**: Provide visible focus indicators for all interactive elements

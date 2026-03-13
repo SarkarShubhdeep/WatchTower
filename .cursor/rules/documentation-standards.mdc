@@ -1,0 +1,29 @@
+---
+description: Documentation standards including Mermaid diagrams and cross-references
+alwaysApply: true
+---
+
+# Documentation Standards
+
+## Diagrams and Visual Documentation
+
+- **Always use Mermaid diagrams** instead of ASCII art for workflow diagrams, architecture diagrams, and flowcharts
+- **Use memorable names** instead of single letters in diagrams (e.g., `Engine`, `Auth`, `Server` instead of `A`, `B`, `C`)
+- Use appropriate Mermaid diagram types:
+  - `graph TB` or `graph LR` for workflow architectures
+  - `flowchart TD` for process flows
+  - `sequenceDiagram` for API interactions
+  - `gitgraph` for branch/release strategies
+
+## Documentation Practices
+
+- Keep documentation DRY - reference other docs instead of duplicating
+- Use clear cross-references between related documentation files
+- Update the main architecture document when workflow structure changes
+
+## GitHub Actions Workflows
+
+- **Script-first approach**: All workflows should call scripts that can be run locally
+- **Local development parity**: Developers should be able to run the exact same commands locally as CI runs
+- **Simple workflows**: GitHub Actions should be thin wrappers around scripts, not contain complex logic
+- **Easy debugging**: When CI fails, developers can reproduce the issue locally by running the same script
