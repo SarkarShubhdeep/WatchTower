@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Activity, ArrowLeft, RefreshCw } from "lucide-react";
+import { Activity, ArrowLeft, RefreshCw, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -11,6 +11,12 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type EventRow = {
     id: number;
@@ -150,102 +156,110 @@ export default function ActivityPage() {
     );
 
     return (
-        <div className="min-h-screen bg-background">
-            <main className="mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-8 sm:py-12">
+        <div className="max-h-screen bg-background ">
+            <main className="mx-auto flex max-h-screen max-w-6xl flex-col py-6 sm:px-8 sm:py-12">
                 <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
                     <div>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Activity className="h-4 w-4" aria-hidden />
-                            <span>Live activity feed</span>
+                            <span className="uppercase">
+                                WatchTower: Live activity feed
+                            </span>
                         </div>
                         <h1 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
                             Activity today
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground max-w-xl">
-                            Flat, local-only view of what the watchers are
-                            recording while WatchTower is running. Updates every
-                            few seconds.
+                            Live activity feed for your current session.
+                            Whenever you switch apps, open windows, or go AFK,
+                            the watchers record it here and this view refreshes
+                            every few seconds.
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
-                        <Button
-                            asChild
-                            variant="outline"
-                            size="sm"
-                            className="rounded-full"
-                        >
-                            <Link href="/">
-                                <ArrowLeft className="mr-1 h-3 w-3" />
-                                Back
-                            </Link>
-                        </Button>
-                        <div className="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-400">
-                            <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.25)]" />
-                            <span>Live</span>
+                        <div className="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 p-2 rounded-full px-3 bg-emerald-50">
+                            <span className="text-primary">Status:</span>
+                            <span className="uppercase font-medium">Live</span>
+                            <span className="animate-pulse inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.25)]" />
                         </div>
                     </div>
                 </header>
 
-                <section className="mb-6 flex flex-wrap items-center gap-4">
+                <section className="mb-4 flex flex-wrap items-center gap-6">
                     <div className="flex items-center gap-2 text-sm">
                         <label
                             htmlFor="activity-date"
-                            className="text-muted-foreground"
+                            className="text-muted-foreground text-xs"
                         >
                             Date
                         </label>
                         <input
                             id="activity-date"
                             type="date"
-                            className="rounded-none border bg-background px-3 py-1.5 text-sm text-foreground shadow-none outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            className="rounded-lg border bg-background px-3 py-1.5 text-sm text-foreground shadow-none outline-none focus-visible:ring-2 focus-visible:ring-ring"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                         />
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                        <label
-                            htmlFor="activity-app"
-                            className="text-muted-foreground"
-                        >
-                            App
-                        </label>
-                        <select
-                            id="activity-app"
-                            className="rounded-none border bg-background px-3 py-1.5 text-sm text-foreground shadow-none outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                            value={appFilter}
-                            onChange={(e) => setAppFilter(e.target.value)}
-                        >
-                            <option value="all">All apps</option>
-                            {apps.map((app) => (
-                                <option key={app} value={app}>
-                                    {app}
-                                </option>
-                            ))}
-                        </select>
+                        <span className="text-muted-foreground">App</span>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    className="rounded-lg px-3 py-1.5  font-normal w-32 justify-between shadow-none"
+                                    aria-label="Filter activity by application"
+                                >
+                                    <span className="truncate max-w-[140px]">
+                                        {appFilter === "all"
+                                            ? "All apps"
+                                            : appFilter}
+                                    </span>
+                                    <ChevronDown className="size-3 opacity-70" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="start">
+                                <DropdownMenuItem
+                                    onSelect={() => setAppFilter("all")}
+                                >
+                                    All apps
+                                </DropdownMenuItem>
+                                {apps.map((app) => (
+                                    <DropdownMenuItem
+                                        key={app}
+                                        onSelect={() => setAppFilter(app)}
+                                    >
+                                        {app}
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                     <Button
                         type="button"
                         variant="outline"
-                        size="icon"
-                        className="rounded-full"
+                        size="icon-sm"
+                        className="rounded-full shadow-none"
                         onClick={() => {
                             setLoading(true);
                             void loadData(date);
                         }}
                         aria-label="Refresh activity"
                     >
-                        <RefreshCw className="h-4 w-4" />
+                        <RefreshCw className="size-3" />
                     </Button>
                 </section>
 
-                <div className="grid flex-1 gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-stretch">
-                    <Card className="shadow-none rounded-none border flex flex-col h-full gap-0 py-0">
+                <div className="flex flex-1 flex-col gap-4 lg:flex-row min-h-0">
+                    {/* Activity list section */}
+                    <Card className="shadow-none rounded-none border flex flex-col flex-1 min-h-0 gap-0 py-0">
                         <CardHeader className="flex flex-row items-center justify-between gap-2 px-4 py-6">
                             <div>
                                 <CardTitle className="text-base">
                                     Activity list
                                 </CardTitle>
-                                <CardDescription>
+                                <CardDescription className="text-xs text-muted-foreground">
                                     One row per context switch or AFK segment.
                                 </CardDescription>
                             </div>
@@ -255,7 +269,7 @@ export default function ActivityPage() {
                                     : `${visibleEvents.length} events`}
                             </span>
                         </CardHeader>
-                        <div className="border-t px-4 py-3 text-xs text-muted-foreground flex items-center justify-between">
+                        <div className="border-b px-4 pb-3 text-xs text-muted-foreground flex items-center justify-between">
                             <span>
                                 Showing{" "}
                                 <span className="font-medium text-foreground">
@@ -272,13 +286,7 @@ export default function ActivityPage() {
                             </span>
                             {hasAfk && <span>Includes AFK segments</span>}
                         </div>
-                        <ScrollArea
-                            className="flex-1"
-                            style={{
-                                maxHeight: "calc(100vh - 600px)",
-                                height: "100%",
-                            }}
-                        >
+                        <ScrollArea className="flex-1">
                             <div className="divide-y text-sm flex flex-col">
                                 {error && (
                                     <div className="px-4 py-3 text-xs text-red-600">
@@ -301,9 +309,9 @@ export default function ActivityPage() {
                                     return (
                                         <div
                                             key={event.id}
-                                            className="activity-row w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/40 transition-colors"
+                                            className="activity-row w-full px-4 py-3 flex items-start hover:bg-muted/40 transition-colors"
                                         >
-                                            <div className="mt-0.5 w-20 shrink-0 text-xs text-muted-foreground">
+                                            <div className="mt-0.5 w-20 shrink-0 text-xs text-muted-foreground ">
                                                 <div>
                                                     {formatTime(event.start_ts)}
                                                 </div>
@@ -345,42 +353,47 @@ export default function ActivityPage() {
                         </ScrollArea>
                     </Card>
 
-                    <Card className="shadow-none rounded-none border flex flex-col">
-                        <CardHeader className="pb-3">
+                    {/* Summary section */}
+                    <Card className="shadow-none rounded-none border flex flex-col flex-1 min-h-0 p-0 gap-0">
+                        <div className="px-4 py-6">
                             <CardTitle className="text-base">
                                 Today&apos;s summary
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="text-xs text-muted-foreground">
                                 Simple totals by app and window for the selected
                                 date.
                             </CardDescription>
-                        </CardHeader>
-                        <div className="border-t divide-y text-sm">
-                            {stats.length === 0 && !loading && (
-                                <div className="px-4 py-6 text-xs text-muted-foreground">
-                                    No statistics yet for this date.
-                                </div>
-                            )}
-                            {stats.map((row) => (
-                                <div
-                                    key={`${row.app}-${row.window_title ?? ""}`}
-                                    className="px-4 py-3 flex items-start justify-between gap-3"
-                                >
-                                    <div className="min-w-0">
-                                        <div className="text-sm font-medium text-foreground truncate">
-                                            {row.app}
-                                        </div>
-                                        {row.window_title && (
-                                            <div className="mt-0.5 text-xs text-muted-foreground truncate">
-                                                {row.window_title}
+                        </div>
+                        <div className="border-t divide-y text-sm flex-1 min-h-0 flex flex-col">
+                            <ScrollArea className="flex-1">
+                                {stats.length === 0 && !loading && (
+                                    <div className="px-4 py-6 text-xs text-muted-foreground">
+                                        No statistics yet for this date.
+                                    </div>
+                                )}
+                                {stats.map((row) => (
+                                    <div
+                                        key={`${row.app}-${row.window_title ?? ""}`}
+                                        className="px-4 py-3 flex items-start justify-between gap-3"
+                                    >
+                                        <div className="min-w-0">
+                                            <div className="text-sm font-medium text-foreground truncate">
+                                                {row.app}
                                             </div>
-                                        )}
+                                            {row.window_title && (
+                                                <div className="mt-0.5 text-xs text-muted-foreground truncate">
+                                                    {row.window_title}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="text-xs text-muted-foreground shrink-0">
+                                            {formatDuration(
+                                                row.duration_seconds,
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className="text-xs text-muted-foreground shrink-0">
-                                        {formatDuration(row.duration_seconds)}
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </ScrollArea>
                         </div>
                     </Card>
                 </div>
