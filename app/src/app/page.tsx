@@ -154,6 +154,144 @@ export default function Home() {
                         </a>
                     </Button>
                 </section>
+
+                {/* Getting started */}
+                <section className="mt-16 space-y-6">
+                    <div>
+                        <h2 className="text-lg font-semibold text-foreground">
+                            Run WatchTower on your machine
+                        </h2>
+                        <p className="mt-1 text-sm text-muted-foreground max-w-xl">
+                            Get a local WatchTower instance running in a few
+                            minutes so you can see activity from your own
+                            machine.
+                        </p>
+                    </div>
+
+                    <div className="space-y-4 text-sm">
+                        <div>
+                            <h3 className="font-medium text-foreground">
+                                Requirements
+                            </h3>
+                            <ul className="mt-1 list-disc space-y-1 pl-5 text-muted-foreground">
+                                <li>Bun or Node.js LTS installed</li>
+                                <li>macOS (for the current watchers)</li>
+                                <li>No Docker required</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 className="font-medium text-foreground">
+                                Setup &amp; run
+                            </h3>
+                            <ol className="mt-1 list-decimal space-y-1 pl-5 text-muted-foreground">
+                                <li>
+                                    Clone the repo:&nbsp;
+                                    <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                        git clone
+                                        https://github.com/SarkarShubhdeep/WatchTower.git
+                                    </code>
+                                </li>
+                                <li>
+                                    Change into the app folder:&nbsp;
+                                    <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                        cd WatchTower/app
+                                    </code>
+                                </li>
+                                <li>
+                                    Install dependencies:&nbsp;
+                                    <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                        bun install
+                                    </code>{" "}
+                                    (or{" "}
+                                    <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                        npm install
+                                    </code>
+                                    )
+                                </li>
+                                <li>
+                                    Start the dev server:&nbsp;
+                                    <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                        bun run dev
+                                    </code>{" "}
+                                    (or{" "}
+                                    <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                        npm run dev
+                                    </code>
+                                    )
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 className="font-medium text-foreground">
+                                Open the app
+                            </h3>
+                            <p className="mt-1 text-muted-foreground">
+                                Once the server is running, open{" "}
+                                <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                    http://localhost:5800
+                                </code>{" "}
+                                in your browser. The{" "}
+                                <span className="font-medium">
+                                    Activity
+                                </span>{" "}
+                                page will start showing live events as soon as
+                                the watchers are running.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 className="font-medium text-foreground">
+                                Check that the backend is healthy
+                            </h3>
+                            <p className="mt-1 text-muted-foreground">
+                                Visit{" "}
+                                <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                    http://localhost:5800/api/health
+                                </code>
+                                . If everything is wired up, you&apos;ll see{" "}
+                                <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                    {"{\"ok\":true}"}
+                                </code>
+                                , and the SQLite database file will be created
+                                automatically on first run.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 className="font-medium text-foreground">
+                                Troubleshooting
+                            </h3>
+                            <p className="mt-1 text-muted-foreground">
+                                If you hit a SQLite &quot;bindings&quot; error,
+                                run{" "}
+                                <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                    npm rebuild better-sqlite3
+                                </code>{" "}
+                                inside the{" "}
+                                <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                                    app
+                                </code>{" "}
+                                folder and restart the dev server.
+                            </p>
+                        </div>
+
+                        <p className="text-xs text-muted-foreground">
+                            For more details on collectors, configuration, and
+                            future integrations, see the full README on{" "}
+                            <a
+                                href="https://github.com/SarkarShubhdeep/WatchTower"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline underline-offset-2"
+                            >
+                                GitHub
+                            </a>
+                            .
+                        </p>
+                    </div>
+                </section>
             </main>
         </div>
     );
