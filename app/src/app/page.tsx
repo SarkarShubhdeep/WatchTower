@@ -121,23 +121,11 @@ export default function Home() {
                 <section className="flex flex-wrap gap-3">
                     <Button
                         asChild
+                        variant="outline"
                         size="lg"
                         className="rounded-none shadow-none"
                     >
-                        <Link href="/api/health">
-                            API health
-                            <ArrowRight className="size-4" />
-                        </Link>
-                    </Button>
-                    <Button
-                        asChild
-                        size="lg"
-                        className="rounded-full shadow-none"
-                    >
-                        <Link href="/activity" target="_blank">
-                            View Tracking
-                            <ArrowUpRight className="size-4" />
-                        </Link>
+                        <Link href="/api/health">API health</Link>
                     </Button>
                     <Button
                         asChild
@@ -153,6 +141,16 @@ export default function Home() {
                             GitHub
                         </a>
                     </Button>
+                    <Button
+                        asChild
+                        size="lg"
+                        className="rounded-full shadow-none"
+                    >
+                        <Link href="/activity" target="_blank">
+                            View Tracking
+                            <ArrowUpRight className="size-4" />
+                        </Link>
+                    </Button>
                 </section>
 
                 {/* Getting started */}
@@ -165,6 +163,9 @@ export default function Home() {
                             Get a local WatchTower instance running in a few
                             minutes so you can see activity from your own
                             machine.
+                        </p>
+                        <p className="mt-1 text-sm max-w-xl text-amber-600">
+                            Built and tested on macOS.
                         </p>
                     </div>
 
@@ -233,9 +234,7 @@ export default function Home() {
                                     http://localhost:5800
                                 </code>{" "}
                                 in your browser. The{" "}
-                                <span className="font-medium">
-                                    Activity
-                                </span>{" "}
+                                <span className="font-medium">Activity</span>{" "}
                                 page will start showing live events as soon as
                                 the watchers are running.
                             </p>
@@ -252,7 +251,7 @@ export default function Home() {
                                 </code>
                                 . If everything is wired up, you&apos;ll see{" "}
                                 <code className="rounded bg-muted px-1 py-0.5 text-xs">
-                                    {"{\"ok\":true}"}
+                                    {'{"ok":true}'}
                                 </code>
                                 , and the SQLite database file will be created
                                 automatically on first run.
@@ -277,18 +276,29 @@ export default function Home() {
                             </p>
                         </div>
 
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-sm text-muted-foreground">
                             For more details on collectors, configuration, and
                             future integrations, see the full README on{" "}
                             <a
                                 href="https://github.com/SarkarShubhdeep/WatchTower"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="underline underline-offset-2"
+                                className="underline underline-offset-2 text-blue-500"
                             >
                                 GitHub
                             </a>
                             .
+                            <br />
+                            Use this{" "}
+                            <a
+                                href="https://github.com/SarkarShubhdeep/WatchTower/issues/new"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline underline-offset-2 text-blue-500"
+                            >
+                                link
+                            </a>{" "}
+                            to create an issue.
                         </p>
                     </div>
                 </section>

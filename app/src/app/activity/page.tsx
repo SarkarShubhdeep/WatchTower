@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import { Activity, ArrowLeft, RefreshCw, ChevronDown } from "lucide-react";
+import { RefreshCw, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Card,
